@@ -27,77 +27,71 @@ public class MainFrame extends JFrame {
 
 	public MainFrame() {
 		super("RP Contact Manager");
-		this.setPreferredSize(new Dimension(900, 600));
-		this.initContent();
-		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		this.pack();
+		setPreferredSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
+		initContent();
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		pack();
 	}
 
 	private void initContent() {
 		JPanel content = new JPanel();
 		content.setLayout(null);
-		this.makeDescription(content);
-		this.getContentPane().add(content, null);
+		makeDescription(content);
+		getContentPane().add(content, null);
 	}
 
 	private void makeDescription(JPanel content) {
+		int xOffsetLabel = 370;
+		int xOffsetTextfield = 510;
+		int spacing = 30;
+		int yOffset = 10;
+		int widthLabel = 130;
+		int widthTextfield = 370;
+		int height = 25;
+
 		String[] labels =
 				new String[] { "Name", "Association", "Work", "Rank", "Contact choices", "Squad relation", "First met",
 						"Contact for" };
 
 		for (int i = 0; i < labels.length; i++) {
-			this.createLabel(labels[i], i, content);
+			createComponent(CreationMode.LABEL, content, labels[i] + ":", xOffsetLabel,
+					10 + i * spacing, widthLabel, height);
 		}
 
-		int xOffset = 510;
-		int yOffset = 10;
-		int spacing = 30;
-		int fullWidth = 370;
-		int height = 25;
-		this.name =
-				(JTextField) this.createComponent(MainFrame.CreationMode.TEXTFIELD, content, null, xOffset, yOffset,
-						fullWidth, height);
-		this.association =
-				(JTextField) this.createComponent(MainFrame.CreationMode.TEXTFIELD, content, null, xOffset, yOffset
-						+ spacing, fullWidth, height);
-		this.work =
-				(JTextField) this.createComponent(MainFrame.CreationMode.TEXTFIELD, content, null, xOffset, yOffset + 2
-						* spacing, fullWidth, height);
-		this.rank =
-				(JTextField) this.createComponent(MainFrame.CreationMode.TEXTFIELD, content, null, xOffset, yOffset + 3
-						* spacing, fullWidth, height);
-		this.contactChoice =
-				(JTextField) this.createComponent(MainFrame.CreationMode.TEXTFIELD, content, null, xOffset, yOffset + 4
-						* spacing, fullWidth, height);
-		this.squadRelation =
-				(JTextField) this.createComponent(MainFrame.CreationMode.TEXTFIELD, content, null, xOffset, yOffset + 5
-						* spacing, fullWidth, height);
-		this.firstMet =
-				(JTextField) this.createComponent(MainFrame.CreationMode.TEXTFIELD, content, null, xOffset, yOffset + 6
-						* spacing, fullWidth, height);
+		name =
+				(JTextField) createComponent(CreationMode.TEXTFIELD, content, null, xOffsetTextfield,
+						yOffset, widthTextfield, height);
+		association =
+				(JTextField) createComponent(CreationMode.TEXTFIELD, content, null, xOffsetTextfield,
+						yOffset + spacing, widthTextfield, height);
+		work =
+				(JTextField) createComponent(CreationMode.TEXTFIELD, content, null, xOffsetTextfield,
+						yOffset + 2 * spacing, widthTextfield, height);
+		rank =
+				(JTextField) createComponent(CreationMode.TEXTFIELD, content, null, xOffsetTextfield,
+						yOffset + 3 * spacing, widthTextfield, height);
+		contactChoice =
+				(JTextField) createComponent(CreationMode.TEXTFIELD, content, null, xOffsetTextfield,
+						yOffset + 4 * spacing, widthTextfield, height);
+		squadRelation =
+				(JTextField) createComponent(CreationMode.TEXTFIELD, content, null, xOffsetTextfield,
+						yOffset + 5 * spacing, widthTextfield, height);
+		firstMet =
+				(JTextField) createComponent(CreationMode.TEXTFIELD, content, null, xOffsetTextfield,
+						yOffset + 6 * spacing, widthTextfield, height);
 
-		this.detailedNotes = new JTextArea();
-		JTextArea textArea = new JTextArea("TEST");
-		textArea.setSize(400, 400);
-		textArea.setLineWrap(true);
-		textArea.setEditable(false);
-		textArea.setVisible(true);
-		JScrollPane scroll = new JScrollPane(textArea);
-		scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		this.add(scroll);
+		detailedNotes = new JTextArea();
+		detailedNotes.setWrapStyleWord(true);
+		detailedNotes.setLineWrap(true);
+		int width = WINDOW_WIDTH - 20 - xOffsetLabel;
+		JScrollPane scroll =
+				new JScrollPane(detailedNotes, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+						ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scroll.setBounds(xOffsetLabel, yOffset + 8 * spacing, width, 250);
+		add(scroll);
 	}
 
-	private void createLabel(String labelName, int yIndex, JPanel content) {
-		short xOffset = 200;
-		byte spacing = 30;
-		short width = 300;
-		byte height = 25;
-		this.createComponent(MainFrame.CreationMode.LABEL, content, labelName + ":", xOffset, 10 + yIndex * spacing,
-				width, height);
-	}
-
-	private JComponent createComponent(MainFrame.CreationMode mode, JPanel content, String name, int x, int y,
+	private JComponent createComponent(CreationMode mode, JPanel content, String name, int x, int y,
 			int width, int height) {
 		JComponent newComponent = null;
 		switch (mode) {
